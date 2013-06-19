@@ -2,7 +2,9 @@
   (:require [compojure.core :refer [defroutes GET POST]]
             [compojure.route :refer [resources not-found]]
             [compojure.handler :refer [site]]
-            [modern-cljs.login :refer [authenticate-user]]))
+            [shoreleave.middleware.rpc :refer [wrap-rpc]]
+            [modern-cljs.templates :refer [shopping-form]]
+            [modern-cljs.shopping.validators :refer [validate-form]]))
 
 ;; defroutes macro defines a function that chains individual route
 ;; functions together. The request map is passed to each function in
@@ -10,8 +12,8 @@
 (defroutes app-routes
   ;; to serve document root address
   (GET "/" [] "<p>Hello from compojure</p>")
-  ;; to authenticate the user
-  (POST "/login" [email password] (authenticate-user email password))
+  ;; to calcualate the total
+  (POST "/shopping" [quantity tax price discount] (shopping-form (validate-form quantity tax price discount)))
   ;; to server static pages saved in resources/public directory
   (resources "/")
   ;; if page is not found
@@ -21,3 +23,7 @@
 ;;; adding a bunch of standard ring middleware to app-route:
 (def handler
   (site app-routes))
+
+(def app (-> (var handler)
+             (wrap-rpc)
+             (site)))
