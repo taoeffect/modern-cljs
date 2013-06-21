@@ -12,6 +12,9 @@
   (GET "/" [] "<p>Hello from compojure</p>")
   ;; to authenticate the user
   (POST "/login" [email password] (authenticate-user email password))
+  ;; to server shopping command
+  (POST "/shopping" [quantity price tax discount]
+        (str "You enter: " quantity " " price " " tax " " discount "."))
   ;; to server static pages saved in resources/public directory
   (resources "/")
   ;; if page is not found
