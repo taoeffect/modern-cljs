@@ -11,9 +11,8 @@
 <body>
   <!-- shopping.html -->
   <form action="/shopping" method="post" id="shoppingForm" novalidate>
-    <legend> Shopping Calculator</legend>
-    <fieldset>
-
+    <fieldset form="shoppingForm">
+      <legend> Shopping Calculator</legend>
       <div>
         <label for="quantity">Quantity</label>
         <input type="number"
@@ -63,12 +62,11 @@
                value="Calculate"
                id="calc">
       </div>
-
+      <script src="js/modern.js"></script>
+      <script>
+        modern_cljs.shopping.init();
+      </script>
     </fieldset>
   </form>
-  <script src="js/modern.js"></script>
-  <script>
-    modern_cljs.shopping.init();
-  </script>
 </body>
 </html>
