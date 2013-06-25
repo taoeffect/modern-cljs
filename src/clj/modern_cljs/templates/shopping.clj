@@ -8,4 +8,5 @@
   [:#price] (set-attr :value price)
   [:#tax] (set-attr :value tax)
   [:#discount] (set-attr :value discount)
-  [:#total] (set-attr :value (calculate quantity price tax discount)))
+  [:#total] (set-attr :value 
+                      (format "%.2f" (calculate quantity price tax discount))))
